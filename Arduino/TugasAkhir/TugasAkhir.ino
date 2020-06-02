@@ -32,12 +32,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print((char)payload[i]);
   }
   Serial.println();
-  
-  if ((char)payload[0] == '1') {
+  if (topic == "tugasakhir/control"){
+    if ((char)payload[0] == '1') {
      digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED on by making the voltage HIGH
   } else {
      digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage LOW
+  }  
   }
+  
 
 }
 
