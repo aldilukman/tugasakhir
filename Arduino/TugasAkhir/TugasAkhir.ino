@@ -1,8 +1,7 @@
 #include <PZEM004Tv30.h>
 #include <WiFi.h>
 #include <WiFiClient.h>
-#include <WiFiAP.h>
-
+#include <PubSubClient.h>
 /* Hardware Serial3 is only available on certain boards.
  * For example the Arduino MEGA 2560
 */
@@ -14,35 +13,92 @@ PZEM004Tv30 pzem(&Serial2);
 // Set these to your desired credentials.
 const char *ssid = "Esp8266";
 const char *password = "12345678";
+const char* mqtt_server = "broker.hivemq.com";
+
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+long lastMsg = 0;
+char msg[255];
+int value = 0;
+
 String dataConcat;
-WiFiServer server(12345);
+
+void callback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+  
+  if ((char)payload[0] == '1') {
+     digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED on by making the voltage HIGH
+  } else {
+     digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage LOW
+  }
+
+}
+
+void reconnect() {
+  // Loop until we're reconnected
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    // Create a random client ID
+    String clientId = "ESP8266Client-";
+    clientId += String(random(0xffff), HEX);
+    // Attempt to connect
+    if (client.connect(clientId.c_str())) {
+      Serial.println("connected");
+      // Once connected, publish an announcement...
+      client.publish("outTopic", "hello world");
+      // ... and resubscribe
+      client.subscribe("inTopic");
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
+}
+
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LOW);
   Serial.begin(115200);
+  Serial.println("Starting connecting WiFi.");
+  delay(10);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
 
-   WiFi.softAP(ssid, password);
-  IPAddress myIP = WiFi.softAPIP();
-  Serial.print("AP IP address: ");
-  Serial.println(myIP);
-  server.begin();
-
-  Serial.println("Server started");
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback);
 }
 
 void loop() {
   
-    const uint16_t port = 1337;
-    const char * host = "192.168.4.2"; // ip or dns
     
-    Serial.print("Connecting to ");
-    Serial.println(host);
-
-    // Use WiFiClient class to create TCP connections
-    WiFiClient client;
-    if (client.connect(host, port)) {
         
+    
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+
+  long now = millis();
+    if (now - lastMsg > 1000) {
+        lastMsg = now;
+        ++value;
         dataConcat = "";
         float voltage = pzem.voltage();
         if(!isnan(voltage)){
@@ -100,30 +156,19 @@ void loop() {
         dataConcat += String(frequency,1);
         dataConcat += "_";
         dataConcat += String(pf);
-        client.print(dataConcat);
+
+        // Length (with one extra character for the null terminator)
+        int str_len = dataConcat.length() + 1; 
+         
+        // Prepare the character array (the buffer) 
+        char char_array[str_len];
+         
+        // Copy it over 
+        dataConcat.toCharArray(char_array, str_len);
         
-        
-        delay(1000);
-        if (client.available() > 0)
-        {
-          //read back one line from the server
-          String line = client.readStringUntil('\r');
-          if(line == "nyala"){
-            digitalWrite(LED_BUILTIN, HIGH);
-          }else if (line == "mati"){
-            digitalWrite(LED_BUILTIN, LOW);
-          }
-          Serial.println(line);
-        }
-        
-        client.stop(); 
+        client.publish("tugasakhir/status",char_array );
     }
-    else{
-        Serial.println("Connection failed.");
-        Serial.println("Waiting 2 seconds before retrying...");
-        delay(1000);
-    }
-    
+      
     
     
 }
