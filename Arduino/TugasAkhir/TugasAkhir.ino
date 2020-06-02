@@ -25,14 +25,15 @@ int value = 0;
 String dataConcat;
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
+  
+  if (topic == "tugasakhir/control"){
+    Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
   for (int i = 0; i < length; i++) {
     Serial.print((char)payload[i]);
   }
   Serial.println();
-  if (topic == "tugasakhir/control"){
     if ((char)payload[0] == '1') {
      digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED on by making the voltage HIGH
   } else {
