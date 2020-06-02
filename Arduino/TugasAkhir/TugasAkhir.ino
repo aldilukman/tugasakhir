@@ -25,8 +25,8 @@ int value = 0;
 String dataConcat;
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  
-  if (topic == "tugasakhir/control"){
+  String myString = String(topic);
+  if (myString == "tugasakhir/control"){
     Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
