@@ -61,7 +61,7 @@ namespace Login2
             try
             {
                 string message = Encoding.UTF8.GetString(e.Message);
-                MessageBox.Show(message);
+                //MessageBox.Show(message);
                 string[] dataSplit = message.Split('_');
                 Dispatcher.Invoke(() =>
                 {
