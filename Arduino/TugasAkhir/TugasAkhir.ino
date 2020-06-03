@@ -26,8 +26,9 @@ String dataConcat;
 
 void callback(char* topic, byte* payload, unsigned int length) {
   String myString = String(topic);
-  if (myString == "tugasakhir/control"){
-    Serial.print("Message arrived [");
+  Serial.print(myString);
+
+  Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
   for (int i = 0; i < length; i++) {
@@ -38,8 +39,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
      digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED on by making the voltage HIGH
   } else {
      digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage LOW
-  }  
   }
+  
   
 
 }
@@ -86,6 +87,8 @@ void setup() {
 
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
+  client.subscribe("tugasakhir/control");
+  
 }
 
 void loop() {
