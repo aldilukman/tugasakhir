@@ -55,10 +55,8 @@ void reconnect() {
     // Attempt to connect
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
-      // Once connected, publish an announcement...
-      client.publish("outTopic", "hello world");
-      // ... and resubscribe
-      client.subscribe("inTopic");
+      
+      client.subscribe("tugasakhir/control");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -87,7 +85,7 @@ void setup() {
 
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
-  client.subscribe("tugasakhir/control");
+  
   
 }
 

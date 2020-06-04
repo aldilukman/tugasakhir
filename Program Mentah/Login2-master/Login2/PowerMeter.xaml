@@ -25,6 +25,8 @@
                 <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
             </Rectangle.Effect>
         </Rectangle>
+        <Image Source="Assets/close.png" Height="29" VerticalAlignment="Top" Margin="1116,34,63,0" PreviewMouseDown="Exit" />
+
         <Grid VerticalAlignment="Bottom" Margin="31,0,39,594" Height="45">
             <Label Content="Power Meter" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Gray" FontSize="18"/>
         </Grid>

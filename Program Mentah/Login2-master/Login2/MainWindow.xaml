@@ -31,12 +31,13 @@
         <Grid VerticalAlignment="Bottom" Margin="35,80" Height="240">
             <Label Content="Mencari ID Pelanggan" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="57,48,24,0" Foreground="Gray" FontSize="18" Width="199"/>
             <StackPanel VerticalAlignment="Center" Margin="15">
-                <TextBox Margin="0,10" Name="Pelanggan" materialDesign:HintAssist.Hint="Nama / ID Pelanggan"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
+                <TextBox Margin="0,10" Name="Pelanggan" materialDesign:HintAssist.Hint="Nama / ID Pelanggan"   Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
 
             </StackPanel>
         </Grid>
         <Button Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="98,0,102,110" Content="Cari" Click="searchButton"/>
         <TextBlock Text="Insert ID Pelanggan?" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="124,0,116,77" Foreground="Gray" Cursor="Hand" PreviewMouseDown="insert"/>
         <Image Source="Assets/home.png" Width="100" Height="100" VerticalAlignment="Top" Margin="124,75,126,0"/>
+        <Image Source="Assets/close.png" Height="29" VerticalAlignment="Top" Margin="304,10,10,0" PreviewMouseDown="Exit" />
     </Grid>
 </Window>

@@ -31,9 +31,7 @@ namespace Login2
         public PowerMeter(String nama, String id, String daya)
         {
             InitializeComponent();
-            ///listener = new TcpListener(IPAddress.Any, 1337);
-            ///listener.Start();
-            ///StartAccept();
+            
             client = new MqttClient("broker.hivemq.com");
             //client.ProtocolVersion = MqttProtocolVersion.Version_3_1_1;
             string clientId = Guid.NewGuid().ToString();
@@ -53,6 +51,12 @@ namespace Login2
             IDPelanggan.Content = id;
             Daya.Content = daya;
             this.daya = daya;
+            harga = 0;
+        }
+        private void Exit(object sender, MouseButtonEventArgs e)
+        {
+            client.Disconnect();
+            this.Close();
         }
 
         void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
@@ -102,7 +106,7 @@ namespace Login2
                     }
                     catch(Exception err)
                     {
-                        MessageBox.Show("Format Salah !!!");
+                        //MessageBox.Show("Format Salah !!!");
                     }
                     
 
@@ -111,17 +115,19 @@ namespace Login2
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
 
         }
 
         private void Logout(object sender, RoutedEventArgs e)
         {
+            client.Disconnect();
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             ///listener.Stop();
             this.Close();
+            
         }
 
         private void KWHOFF(object sender, RoutedEventArgs e)

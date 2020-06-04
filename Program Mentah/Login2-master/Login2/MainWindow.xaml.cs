@@ -50,5 +50,10 @@ namespace Login2
             insertData.Show();
             this.Close();
         }
+
+        private void Exit(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
