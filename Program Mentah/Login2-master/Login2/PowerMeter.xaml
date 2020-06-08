@@ -74,12 +74,7 @@
         <Button Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="644,0,433,66" Content="KWH OFF" Click="KWHOFF"/>
         <Button Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="464,0,613,66" Content="KWH ON" Click="KWHON"/>
 
-        <Grid VerticalAlignment="Bottom" Margin="548,0,543,177" Height="98">
-            <Label Content="Rp" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="60"/>
-        </Grid>
-        <Grid VerticalAlignment="Bottom" Margin="684,0,63,136" Height="175">
-            <Label Content="100000" Name="Rp" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="100"/>
-        </Grid>
+        
 
         <Grid VerticalAlignment="Bottom" Margin="71,0,1020,177" Height="72">
             <Label Content="Nama" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="30"/>

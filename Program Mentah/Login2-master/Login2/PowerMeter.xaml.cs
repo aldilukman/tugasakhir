@@ -25,7 +25,7 @@ namespace Login2
     {
         ///private TcpListener listener;
         static String controlKWH = "";
-        static double harga = 0;
+        static double kwhTotal = 0;
         String daya;
         MqttClient client;
         public PowerMeter(String nama, String id, String daya)
@@ -51,7 +51,7 @@ namespace Login2
             IDPelanggan.Content = id;
             Daya.Content = daya;
             this.daya = daya;
-            harga = 0;
+            kwhTotal = 0;
         }
         private void Exit(object sender, MouseButtonEventArgs e)
         {
@@ -74,10 +74,10 @@ namespace Login2
                         Voltage.Content = dataSplit[0];
                         Ampere.Content = dataSplit[1];
                         Watt.Content = dataSplit[2];
-                        Kwh.Content = dataSplit[3];
+                        //Kwh.Content = dataSplit[3];
                         Hz.Content = dataSplit[4];
                         Pf.Content = dataSplit[5];
-                        float hargaDaya = 0;
+                        /*float hargaDaya = 0;
                         if (daya.Contains("450 VA"))
                         {
                             hargaDaya = 452;
@@ -93,16 +93,18 @@ namespace Login2
                         else if (daya.Contains("1300 VA"))
                         {
                             hargaDaya = 1452;
-                        }
+                        }*/
                         float kwhSekarang = float.Parse(dataSplit[3]);
+                        kwhTotal = kwhTotal + kwhSekarang;
+                        Kwh.Content = kwhTotal;
                         //float kwhSekarang = 1000;
 
-                        float hargaSekarang = (hargaDaya / 3600) * kwhSekarang;
+                        //float hargaSekarang = (hargaDaya / 3600) * kwhSekarang;
                         //Console.WriteLine(hargaSekarang);
-                        hargaSekarang = hargaSekarang + (hargaSekarang * (60 / 100));
+                        //hargaSekarang = hargaSekarang + (hargaSekarang * (60 / 100));
 
-                        harga += hargaSekarang;
-                        Rp.Content = harga;
+                        //harga += hargaSekarang;
+                        //Rp.Content = harga;
                     }
                     catch(Exception err)
                     {
