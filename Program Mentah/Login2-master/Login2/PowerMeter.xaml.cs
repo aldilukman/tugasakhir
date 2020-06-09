@@ -31,22 +31,29 @@ namespace Login2
         public PowerMeter(String nama, String id, String daya)
         {
             InitializeComponent();
+            try
+            {
+                client = new MqttClient("broker.hivemq.com");
+                //client.ProtocolVersion = MqttProtocolVersion.Version_3_1_1;
+                string clientId = Guid.NewGuid().ToString();
+                byte code = client.Connect(clientId);
+                if (code == 0)
+                {
+                    //Subcribe Topic
+                    client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+                    client.Subscribe(new string[] { "tugasakhir/status" }, new byte[] { 0 });
+
+                }
+                else
+                {
+
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Connection Internet Not Found");
+            }
             
-            client = new MqttClient("broker.hivemq.com");
-            //client.ProtocolVersion = MqttProtocolVersion.Version_3_1_1;
-            string clientId = Guid.NewGuid().ToString();
-            byte code = client.Connect(clientId);
-            if (code == 0)
-            {
-                //Subcribe Topic
-                client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
-                client.Subscribe(new string[] { "tugasakhir/status" }, new byte[] { 0 });
-
-            }
-            else
-            {
-
-            }
             Nama.Content = nama;
             IDPelanggan.Content = id;
             Daya.Content = daya;
@@ -55,7 +62,15 @@ namespace Login2
         }
         private void Exit(object sender, MouseButtonEventArgs e)
         {
-            client.Disconnect();
+            try
+            {
+                client.Disconnect();
+            }
+            catch(Exception Ex)
+            {
+
+            }
+            
             this.Close();
         }
 
@@ -71,12 +86,25 @@ namespace Login2
                 {
                     try
                     {
+                        float ampereSekarang = float.Parse(dataSplit[1]);
+                        if(ampereSekarang <= 0.09)
+                        {
+                            Ampere.Content = 0;
+                            Watt.Content = 0;
+                            Pf.Content = 0;
+                        }
+                        else
+                        {
+                            Ampere.Content = dataSplit[1];
+                            Watt.Content = dataSplit[2];
+                            
+                            Pf.Content = dataSplit[5];
+                            float kwhSekarang = (float.Parse(dataSplit[1]) * float.Parse(dataSplit[0]))/1000;
+                            kwhTotal = kwhTotal + kwhSekarang;
+                            Kwh.Content = kwhTotal;
+                        }
                         Voltage.Content = dataSplit[0];
-                        Ampere.Content = dataSplit[1];
-                        Watt.Content = dataSplit[2];
-                        //Kwh.Content = dataSplit[3];
                         Hz.Content = dataSplit[4];
-                        Pf.Content = dataSplit[5];
                         /*float hargaDaya = 0;
                         if (daya.Contains("450 VA"))
                         {
@@ -94,9 +122,7 @@ namespace Login2
                         {
                             hargaDaya = 1452;
                         }*/
-                        float kwhSekarang = float.Parse(dataSplit[3]);
-                        kwhTotal = kwhTotal + kwhSekarang;
-                        Kwh.Content = kwhTotal;
+
                         //float kwhSekarang = 1000;
 
                         //float hargaSekarang = (hargaDaya / 3600) * kwhSekarang;
@@ -124,7 +150,15 @@ namespace Login2
 
         private void Logout(object sender, RoutedEventArgs e)
         {
-            client.Disconnect();
+            try
+            {
+                client.Disconnect();
+            }
+            catch(Exception Ex)
+            {
+
+            }
+            
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             ///listener.Stop();
