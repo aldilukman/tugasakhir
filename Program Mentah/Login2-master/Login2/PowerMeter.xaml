@@ -36,15 +36,15 @@
         <Grid VerticalAlignment="Bottom" Margin="761,0,-91,506" Height="88">
             <Label Content="W" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="60"/>
         </Grid>
-        <Grid VerticalAlignment="Bottom" Margin="-19,0,567,450" Height="175">
-            <Label Content="200.20" Name="Voltage" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="100"/>
+        <Grid VerticalAlignment="Bottom" Margin="143,0,741,450" Height="175">
+            <Label Content="0" Name="Voltage" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="100"/>
         </Grid>
 
-        <Grid VerticalAlignment="Bottom" Margin="-19,0,567,336" Height="175">
-            <Label Content="500" Name="Ampere" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="100"/>
+        <Grid VerticalAlignment="Bottom" Margin="142,0,742,339" Height="175">
+            <Label Content="0" Name="Ampere" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="100"/>
         </Grid>
-        <Grid VerticalAlignment="Bottom" Margin="-19,0,567,231" Height="175">
-            <Label Content="500" Name="Kwh" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="100"/>
+        <Grid VerticalAlignment="Bottom" Margin="83,0,684,231" Height="175">
+            <Label Content="0" Name="Kwh" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="100" />
         </Grid>
         <Grid VerticalAlignment="Bottom" Margin="491,0,57,450" Height="175">
             <Label Content="500" Name="Watt" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="100"/>
@@ -63,7 +63,7 @@
         <Grid VerticalAlignment="Bottom" Margin="871,0,39,380" Height="88">
             <Label Content="Pf" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="38,10,22,0" Foreground="Black" FontSize="60"/>
         </Grid>
-        <Grid VerticalAlignment="Bottom" Margin="248,0,379,275" Height="88">
+        <Grid VerticalAlignment="Bottom" Margin="305,0,322,275" Height="88">
             <Label Content="KWh" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="60"/>
         </Grid>
         <Grid VerticalAlignment="Bottom" Margin="744,0,-117,275" Height="88">
@@ -74,7 +74,7 @@
         <Button Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="644,0,433,66" Content="KWH OFF" Click="KWHOFF"/>
         <Button Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="464,0,613,66" Content="KWH ON" Click="KWHON"/>
 
-        
+
 
         <Grid VerticalAlignment="Bottom" Margin="71,0,1020,177" Height="72">
             <Label Content="Nama" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Black" FontSize="30"/>

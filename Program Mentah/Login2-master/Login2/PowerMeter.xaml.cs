@@ -58,7 +58,14 @@ namespace Login2
             IDPelanggan.Content = id;
             Daya.Content = daya;
             this.daya = daya;
+            Kwh.Content = 0;
+            Ampere.Content = 0;
+            Watt.Content = 0;
+            Pf.Content = 0;
+            Voltage.Content = 0;
+            Hz.Content = 0;
             kwhTotal = 0;
+            Kwh.Content = kwhTotal.ToString("n6");
         }
         private void Exit(object sender, MouseButtonEventArgs e)
         {
@@ -99,9 +106,11 @@ namespace Login2
                             Watt.Content = dataSplit[2];
                             
                             Pf.Content = dataSplit[5];
-                            float kwhSekarang = (float.Parse(dataSplit[1]) * float.Parse(dataSplit[0]))/1000;
+                            double kwhSekarang = (double.Parse(dataSplit[1]) * double.Parse(dataSplit[0]))/3600000;
                             kwhTotal = kwhTotal + kwhSekarang;
-                            Kwh.Content = kwhTotal;
+                            Console.WriteLine(kwhTotal);
+                            Kwh.Content = kwhTotal.ToString("n6");
+                           
                         }
                         Voltage.Content = dataSplit[0];
                         Hz.Content = dataSplit[4];
