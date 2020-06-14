@@ -9,12 +9,17 @@ A. Instalasi
 6. Buka "Program mentah -> Login2-master -> Login2.sln" doubleclick
 
 B. Setting Laptop/PC
-1. Sambungkan laptop anda connect dengan ssid "Esp8266" dengan password "12345678"
-2. Pastikan IP Laptop anda "192.168.4.2" biasanya otomatis jika tidak ada device lain yg connect dan pastikan juga hanya laptop anda yg connect ke esp agar ip nya selalu 192.168.4.2
-3. Jika laptop IP anda masih tidak sesuai, anda bisa merubah secara manual ip nya di laptop anda, menjadi pengaturan ip static
-	https://dosenit.com/jaringan-komputer/cara-merubah-ip-address-dynamic-menjadi-static
+1. Pastikan laptop anda connect internet
 4. Jalankan XAMPP dan Pastikan APACHE dan MYSQL nya sudah start
 ![Screenshot (680)](https://user-images.githubusercontent.com/42825443/83310568-b06ba600-a236-11ea-9cff-da31e9eb7358.png)
+
+C. Melihat data di broker MQTT
+1. Buka browser dan masukan link http://www.hivemq.com/demos/websocket-client/
+
+![Screenshot (705)](https://user-images.githubusercontent.com/42825443/83578090-19695b80-a560-11ea-80c3-0c125dd60fd5.png)
+
+2. Click Connect
+3. Untuk melihat hasil monioring dari alat, buat topic baru dengan klik "Add New Topic Subscription"
 
 C. Penggunaan program
 1. Jalankan program TugasAkhir.exe ( Bagian A No 4)
