@@ -23,8 +23,9 @@ void lcdInit(){
 */
 
 void setLCD1(String dataDisplay){
+  lcd.clear();
   lcd.setCursor(00,00); //set pada baris 1 dan kolom 1
-  lcd.print("                ");
+  //lcd.print("                ");
   lcd.print(dataDisplay);
 }
 
@@ -37,7 +38,7 @@ void setLCD1(String dataDisplay){
 
 void setLCD2(String dataDisplay2){
   lcd.setCursor(00,1); //set pada baris 2 dan kolom 1
-  lcd.print("                ");
+  //lcd.print("                ");
   lcd.print(dataDisplay2);
 }
 /**

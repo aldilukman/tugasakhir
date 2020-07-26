@@ -1,15 +1,17 @@
 
 
 void setupConnection() {
-  uint8_t mac[6] = {0x00,0x01,0x02,0x03,0x04,0x05};
-  uint8_t myIP[4] = {192,168,1,6};
-
-  Ethernet.begin(mac, myIP);
+  uint8_t mac[6] = {MACADDRESS};
+uint8_t myIP[4] = {MYIPADDR};
+uint8_t myMASK[4] = {MYIPMASK};
+uint8_t myDNS[4] = {MYDNS};
+uint8_t myGW[4] = {MYGW};
+  Ethernet.begin(mac,myIP,myDNS,myGW,myMASK);
   server.begin();
 }
-void sendData(int numberFF) {
+void sendData(String numberFF) {
   EthernetClient client;
-  if (client.connect(IPAddress(192, 168, 0, 1), 12346))
+  if (client.connect(IPAddress(192, 168, 1, 1), 12346))
   {
     client.println(numberFF);
     client.stop();
