@@ -5,9 +5,9 @@ void setupFingerPrint()
   finger.begin(57600);
   
   if (finger.verifyPassword()) {
-    setLCD1("Found Sensor");
+     Serial.println("P1_Found Sensor_");
   } else {
-    setLCD1("Not Found Sensor");
+     Serial.println("P1_Not Found Sensor_");
     while (1) { delay(1); }
   }
 }
@@ -19,19 +19,19 @@ void enroll(int idNumber)                     // run over and over again
 uint8_t getFingerprintEnroll(int id) {
   
   int p = -1;
-  setLCD1("Register");
-  setLCD2("Insert Finger ");
+   Serial.println("P1_Register_");
+   Serial.println("P_Insert Finger_");
   while (p != FINGERPRINT_OK) {
     p = finger.getImage();
     switch (p) {
     case FINGERPRINT_OK:
-      setLCD2("Image taken");
+       Serial.println("P_Image taken_");
       break;
     case FINGERPRINT_NOFINGER:
-      setLCD2("No Finger");
+       //Serial.println("P_No Finger_");
       break;
     default:
-      setLCD2("Failed Read");
+       Serial.println("P_Failed Read_");
       break;
     }
   }
@@ -41,34 +41,34 @@ uint8_t getFingerprintEnroll(int id) {
   p = finger.image2Tz(1);
   switch (p) {
     case FINGERPRINT_OK:
-      setLCD2("Image converted");
+       Serial.println("P_Image converted_");
       break;
     
     default:
-      setLCD2("Failed Read");
+       Serial.println("P_Failed Read_");
       return p;
   }
   
-  setLCD2("Remove finger");
+   Serial.println("P_Remove finger_");
   delay(2000);
   p = 0;
   while (p != FINGERPRINT_NOFINGER) {
     p = finger.getImage();
   }
-  setLCD2(id);
   p = -1;
+  Serial.println("P_Insert Finger_");
   while (p != FINGERPRINT_OK) {
     p = finger.getImage();
     switch (p) {
     case FINGERPRINT_OK:
-      setLCD2("Image taken");
+       Serial.println("P_Image taken_");
       break;
     case FINGERPRINT_NOFINGER:
-      setLCD2("Place finger");
+       //Serial.println("P_Place finger_");
       break;
     
     default:
-      setLCD2("Failed read");
+       Serial.println("P_Failed read_");
       break;
     }
   }
@@ -78,31 +78,32 @@ uint8_t getFingerprintEnroll(int id) {
   p = finger.image2Tz(2);
   switch (p) {
     case FINGERPRINT_OK:
-      setLCD2("Image converted");
+       Serial.println("P_Image converted_");
       break;
     default:
-      setLCD2("Failed Read");
+       Serial.println("P_Failed Read_");
       return p;
   }
   
   // OK converted!
-  setLCD2("Creating"); 
+   Serial.println("P_Creating_"); 
   
   p = finger.createModel();
   if (p == FINGERPRINT_OK) {
-    setLCD2("Prints matched");
+     Serial.println("P_Prints matched_");
   } 
   else {
-    setLCD2("Prints not matched");
+     Serial.println("P_Prints not matched_");
     return p;
   }   
   
   p = finger.storeModel(id);
   if (p == FINGERPRINT_OK) {
-    setLCD2("Stored!");
+     Serial.println("P_Stored_");
+     Serial.println("S_Sukses");
   } 
   else {
-    setLCD2("Error writing");
+     Serial.println("P_Error writing_");
     return p;
   }   
 }
@@ -111,10 +112,10 @@ uint8_t getFingerprintID() {
   uint8_t p = finger.getImage();
   switch (p) {
     case FINGERPRINT_OK:
-      setLCD2("Image taken");
+       Serial.println("P1_Checking Data_");
       break;
     default:
-      setLCD2("Failed Read");
+       //Serial.println("P_Failed Read_");
       return p;
   }
 
@@ -123,46 +124,59 @@ uint8_t getFingerprintID() {
   p = finger.image2Tz();
   switch (p) {
     case FINGERPRINT_OK:
-      setLCD2("Image converted");
+       Serial.println("P_Image converted_");
       break;
     
     default:
-      setLCD2("Failed Read");
+       Serial.println("P_Failed Read_");
       return p;
   }
   
   // OK converted!
   p = finger.fingerSearch();
   if (p == FINGERPRINT_OK) {
-    setLCD2("Found a print match!");
+     Serial.println("P_Found a print match_");
+     Serial.println("B3_");
   } else if (p == FINGERPRINT_NOTFOUND) {
-    setLCD2("FF Not Found");
+     Serial.println("P_FF Not Found_");
+     Serial.println("N_NotFound_");
+     Serial.println("B3_");
+     delay(1000);
+     Serial.println("B3_");
+     delay(1000);
+     Serial.println("B3_");
+     delay(1000);
     return p;
   } else {
-    setLCD2("Failed");
+     //Serial.println("P_Failed");
     return p;
   }   
   
   // found a match!
-  setLCD1("Found ID #"); setLCD2(finger.fingerID); 
-  sendData(finger.fingerID);
+   Serial.print("P_Found ID #");
+   Serial.print(finger.fingerID);
+   Serial.println("_");
+   Serial.print("M_");
+   Serial.println(finger.fingerID);
+   Serial.println("B3_");
   return finger.fingerID;
 }
 
 void deleteFingerprint(uint8_t id) {
   uint8_t p = -1;
-  setLCD1("Delete");
+   Serial.println("P1_Delete User_");
   p = finger.deleteModel(id);
 
   if (p == FINGERPRINT_OK) {
-    setLCD1("Deleted");
-    setLCD2(id);
+     Serial.println("P_Deleted_");
+     Serial.println("S_Sukses");
   } else {
-    setLCD2("Failed Delete");
+     Serial.println("P_Failed Delete_");
   } 
 }
 
 void emptyData(){
   finger.emptyDatabase();
-  setLCD1("Deleted All Data"); 
+   Serial.println("P_Deleted All Data_"); 
+   Serial.println("S_Sukses");
 }

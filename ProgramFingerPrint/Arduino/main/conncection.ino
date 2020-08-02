@@ -1,11 +1,11 @@
 
 
 void setupConnection() {
-  uint8_t mac[6] = {MACADDRESS};
-uint8_t myIP[4] = {MYIPADDR};
-uint8_t myMASK[4] = {MYIPMASK};
-uint8_t myDNS[4] = {MYDNS};
-uint8_t myGW[4] = {MYGW};
+  uint8_t mac[6] = {0x00,0x01,0x02,0x03,0x04,0x05};
+  uint8_t myIP[4] = {192,168,1,6};
+  uint8_t myMASK[4] = {255,255,255,0};
+  uint8_t myDNS[4] = {192,168,1,1};
+  uint8_t myGW[4] = {192,168,1,1};
   Ethernet.begin(mac,myIP,myDNS,myGW,myMASK);
   server.begin();
 }
@@ -18,11 +18,11 @@ void sendData(String numberFF) {
   }
   else
   {
-    setLCD1("Server Not Connect");
-    setLCD2("Server Not Connect");
+    //setLCD1("Server Not Connect");
+    //setLCD2("Server Not Connect");
   }
 }
-
+/*
 String getValue(String data, char separator, int index)
 {
   int found = 0;
@@ -38,4 +38,4 @@ String getValue(String data, char separator, int index)
   }
 
   return found>index ? data.substring(strIndex[0], strIndex[1]) : "";
-}
+}*/
