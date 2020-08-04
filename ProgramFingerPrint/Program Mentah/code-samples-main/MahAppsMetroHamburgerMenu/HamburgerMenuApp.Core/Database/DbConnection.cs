@@ -183,13 +183,14 @@ namespace HamburgerMenuApp.Core.Database
         }
         public List<string>[] SelectIdentitasAll()
         {
-            string query = "SELECT identitas.*, rule.NAMERULE FROM identitas JOIN rule on identitas.IDRULE = rule.IDRULE;";
+            string query = "SELECT fingerprint.*, identitas.*, rule.NAMERULE FROM identitas JOIN rule on identitas.IDRULE = rule.IDRULE JOIN fingerprint on identitas.IDIDENTITTAS = fingerprint.IDIDENTITTAS;";
             //Create a list to store the result
-            List<string>[] list = new List<string>[4];
+            List<string>[] list = new List<string>[5];
             list[0] = new List<string>();
             list[1] = new List<string>();
             list[2] = new List<string>();
             list[3] = new List<string>();
+            list[4] = new List<string>();
             //Open connection
             if (this.OpenConnection() == true)
             {
@@ -204,6 +205,7 @@ namespace HamburgerMenuApp.Core.Database
                     list[1].Add(dataReader["NAMERULE"] + "");
                     list[2].Add(dataReader["NAMAIDENTITAS"] + "");
                     list[3].Add(dataReader["NOMORIDENTITAS"] + "");
+                    list[4].Add(dataReader["IDFINGERPRINT"] + "");
                 }
                 //close Data Reader
                 dataReader.Close();

@@ -21,12 +21,14 @@ namespace HamburgerMenuApp.Core.Views
     public partial class ModifyAccount : Window
     {
         private String id;
+        private String NomorBefore;
         public ModifyAccount(String id,String name,String Nomor,String Rule)
         {
             InitializeComponent();
             this.id = id;
             nama.Text = name;
             nomor.Text = Nomor;
+            NomorBefore = Nomor;
             status.Items.Add("Dosen");
             status.Items.Add("Mahasiswa");
             if (Rule.Equals("Dosen"))
@@ -44,7 +46,7 @@ namespace HamburgerMenuApp.Core.Views
             if (!String.IsNullOrEmpty(nama.Text) || !String.IsNullOrEmpty(nomor.Text))
             {
                 DbConnection dbConnection = new DbConnection();
-                if (dbConnection.SelectIdentitas(nomor.Text)[0].Count == 0)
+                if (dbConnection.SelectIdentitas(nomor.Text)[0].Count == 0 || NomorBefore.Equals(nomor.Text) )
                 {
                     dbConnection.UpdateIdentitas(int.Parse(id), status.Text, nama.Text, nomor.Text);
                     dbConnection.InsertHistory("Update akun " + nama.Text);

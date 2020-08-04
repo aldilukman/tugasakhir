@@ -165,10 +165,14 @@ uint8_t getFingerprintID() {
 void deleteFingerprint(uint8_t id) {
   uint8_t p = -1;
    Serial.println("P1_Delete User_");
+   Serial.print("P_#");
+   Serial.println(id);
   p = finger.deleteModel(id);
 
   if (p == FINGERPRINT_OK) {
-     Serial.println("P_Deleted_");
+     Serial.print("P_Delete ");
+     Serial.print(id);
+     Serial.println("_");
      Serial.println("S_Sukses");
   } else {
      Serial.println("P_Failed Delete_");
@@ -177,6 +181,6 @@ void deleteFingerprint(uint8_t id) {
 
 void emptyData(){
   finger.emptyDatabase();
-   Serial.println("P_Deleted All Data_"); 
+   Serial.println("P1_Deleted All Data_"); 
    Serial.println("S_Sukses");
 }

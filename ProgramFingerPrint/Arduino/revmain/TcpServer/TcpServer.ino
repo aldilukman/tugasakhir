@@ -1,22 +1,4 @@
-/*
-   UIPEthernet TCPServer example.
 
-   UIPEthernet is a TCP/IP stack that can be used with a enc28j60 based
-   Ethernet-shield.
-
-   UIPEthernet uses the fine uIP stack by Adam Dunkels <adam@sics.se>
-
-        -----------------
-
-   This Hello World example sets up a server at 192.168.1.6 on port 1000.
-   Telnet here to access the service.  The uIP stack will also respond to
-   pings to test if you have successfully established a TCP connection to
-   the Arduino.
-
-   This example was based upon uIP hello-world by Adam Dunkels <adam@sics.se>
-   Ported to the Arduino IDE by Adam Nielsen <malvineous@shikadi.net>
-   Adaption to Enc28J60 by Norbert Truchsess <norbert.truchsess@t-online.de>
-*/
 
 #define MACADDRESS 0x00,0x01,0x02,0x03,0x04,0x05
 #define MYIPADDR 192,168,1,6
@@ -67,8 +49,12 @@ void loop() {
         setLCD1(dataValue);
         setLCD2("Open Gate");
         digitalWrite(2, HIGH);
+        digitalWrite(6, HIGH);
+        digitalWrite(A2, HIGH);
         delay(3000);
         digitalWrite(2, LOW);
+        digitalWrite(6, LOW);
+        digitalWrite(A2, LOW);
         setLCD2("Close Gate");
       }
       mySerial.println(dataReceive);
@@ -93,6 +79,15 @@ void loop() {
         digitalWrite(2, HIGH);
         delay(500);
         digitalWrite(2, LOW);
+    }
+    else if (dataCode == "O"){
+        digitalWrite(2, HIGH);
+        digitalWrite(6, HIGH);
+        digitalWrite(A2, HIGH);
+        delay(3000);
+        digitalWrite(2, LOW);
+        digitalWrite(6, LOW);
+        digitalWrite(A2, LOW);
     }
     else{
       sendData(dataValue);

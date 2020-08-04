@@ -46,6 +46,7 @@ namespace HamburgerMenuApp.Core.Views
                     int idFinger = dbConnection.SelectFingerPrintFromIdentitas(dbConnection.SelectIdentitas(nomor.Text)[0][0]);
                     dbConnection.UpdateStatus(0);
                     //Kirim triger ke alat
+                    //MessageBox.Show(idFinger.ToString());
                     if (sendData(idFinger.ToString()))
                     {
                         loading.Content = "Menunggu balasan alat";

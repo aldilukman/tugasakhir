@@ -35,7 +35,8 @@ namespace HamburgerMenuApp.Core.Views
                         ID = data[0][i].ToString(),
                         Name = data[2][i].ToString(),
                         Nomor = data[3][i].ToString(),
-                        Status = data[1][i].ToString()
+                        Status = data[1][i].ToString(),
+                        IDFinger = data[4][i].ToString()
                     });
                 //MessageBox.Show(data[2][i].ToString());
                 }
@@ -52,8 +53,10 @@ namespace HamburgerMenuApp.Core.Views
                     try
                     {
                         //send data delete id
-                        if(sendData("d_" + authors[row.GetIndex()].ID))
+                        dbConnection.UpdateStatus(0);
+                        if (sendData("d_" + authors[row.GetIndex()].IDFinger+"_"))
                         {
+                            //MessageBox.Show(authors[row.GetIndex()].IDFinger);
                             Loading loading = new Loading();
                             loading.ShowDialog();
                             if (dbConnection.SelectStatus())
@@ -155,6 +158,7 @@ namespace HamburgerMenuApp.Core.Views
         private string nomorAccount;
         private string statusAccount;
         private String _id;
+        private String _idFinger;
         public string Name
         {
             get { return nameAccount; }
@@ -179,6 +183,12 @@ namespace HamburgerMenuApp.Core.Views
             get { return _id; }
 
             set { _id = value; }
+        }
+        public String IDFinger
+        {
+            get { return _idFinger; }
+
+            set { _idFinger = value; }
         }
     }
 }
